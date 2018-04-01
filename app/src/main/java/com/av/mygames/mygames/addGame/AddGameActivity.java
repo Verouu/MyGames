@@ -1,16 +1,23 @@
 package com.av.mygames.mygames.addGame;
 
 import android.content.Intent;
+import android.support.design.widget.BaseTransientBottomBar;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.av.mygames.mygames.R;
 import com.av.mygames.mygames.model.MyGamesModel;
+
+import java.util.List;
 
 public class AddGameActivity extends AppCompatActivity implements IAddGameView{
     public static final String GAME_NAME = "gameName";
@@ -54,12 +61,28 @@ public class AddGameActivity extends AppCompatActivity implements IAddGameView{
 
     @Override
     public void hideSearchInProgress() {
-        
+
+        game_list.setVisibility(View.VISIBLE);
+        not_found_text.setVisibility(View.VISIBLE);
+        progress_bar.setVisibility(View.GONE);
     }
 
     @Override
     public void showError(String message) {
+        Snackbar.make(findViewById(R.id.base_layout),message, Snackbar.LENGTH_LONG).show();
+    }
 
+    @Override
+    public void displayNames(List<String> names) {
+        ListAdapter adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, names);
+        game_list.setAdapter(adapter);
+        game_list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                presenter.onAddGameRequested(position);
+            }
+        });
     }
 
 

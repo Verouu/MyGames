@@ -4,6 +4,7 @@ import com.av.mygames.mygames.model.AllGameData;
 import com.av.mygames.mygames.model.MyGamesModel;
 import com.av.mygames.mygames.model.inetserver.ResponseReceiver;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,6 +38,15 @@ public class AddGamePresenter {
     }
 
     private void gamesFound(List<AllGameData> response) {
+        List<String> games = new ArrayList<>();
+        for (AllGameData gameData : response) {
+            games.add(gameData.getGame().getName());
+        }
+        gameView.displayNames(games);
+
+    }
+
+    public void onAddGameRequested(int position) {
 
     }
 }
