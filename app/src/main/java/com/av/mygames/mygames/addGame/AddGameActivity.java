@@ -16,10 +16,11 @@ import android.widget.TextView;
 
 import com.av.mygames.mygames.R;
 import com.av.mygames.mygames.model.MyGamesModel;
+import com.av.mygames.mygames.myGames.MyGameActivity;
 
 import java.util.List;
 
-public class AddGameActivity extends AppCompatActivity implements IAddGameView{
+public class AddGameActivity extends AppCompatActivity implements IAddGameView, AskGameConfirmationDialog.IConfirmedListener{
     public static final String GAME_NAME = "gameName";
     private ListView game_list;
     private TextView not_found_text;
@@ -85,5 +86,21 @@ public class AddGameActivity extends AppCompatActivity implements IAddGameView{
         });
     }
 
+    @Override
+    public void askGameInsertionConfirmation(String name, String summary) {
+        AskGameConfirmationDialog askGameConfirmationDialog = AskGameConfirmationDialog.newInstance(name,summary);
+        askGameConfirmationDialog.show(getFragmentManager(), "askGameConfirmationDialog");
+    }
 
+    @Override
+    public void switchToMyGames() {
+        Intent intent = new Intent(this, MyGameActivity.class);
+        startActivity(intent);
+    }
+
+
+    @Override
+    public void onActionConfirmed() {
+        presenter.onAddGameConfirmed();
+    }
 }

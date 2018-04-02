@@ -15,4 +15,8 @@ public interface IAddGameView {
     void showError(String message);
 
     void displayNames(List<String> games);
+
+    void askGameInsertionConfirmation(String name, String summary);
+
+    void switchToMyGames();
 }

@@ -11,4 +11,5 @@ import java.util.List;
 public interface IMyGamesModel {
     void findGames (String gameName, ResponseReceiver<List<AllGameData>> receiver);
 
+    void insertGame(GameData gameData);
 }

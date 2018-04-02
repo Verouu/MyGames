@@ -39,4 +39,13 @@ public class MyGamesModel implements IMyGamesModel{
     public void findGames(String gameName, ResponseReceiver<List<AllGameData>> receiver) {
 
     }
+
+    @Override
+    public void insertGame(GameData gameData) {
+        GameRelationData gameRelationData = new GameRelationData(gameData.getName(), gameData.getId());
+
+        db.insertGameData(gameData);
+        db.insertPlatformData(gameRelationData);
+        db.insertGenreData(gameRelationData);
+    }
 }

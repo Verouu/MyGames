@@ -1,6 +1,7 @@
 package com.av.mygames.mygames.addGame;
 
 import com.av.mygames.mygames.model.AllGameData;
+import com.av.mygames.mygames.model.GameData;
 import com.av.mygames.mygames.model.MyGamesModel;
 import com.av.mygames.mygames.model.inetserver.ResponseReceiver;
 
@@ -14,6 +15,9 @@ import java.util.List;
 public class AddGamePresenter {
     IAddGameView gameView;
     MyGamesModel model;
+    int requestedIndex;
+    List<GameData> games = new ArrayList<>();
+
     public AddGamePresenter(IAddGameView gameView, MyGamesModel model) {
         this.gameView = gameView;
         this.model = model;
@@ -41,12 +45,21 @@ public class AddGamePresenter {
         List<String> games = new ArrayList<>();
         for (AllGameData gameData : response) {
             games.add(gameData.getGame().getName());
+            this.games.add(gameData.getGame());
         }
         gameView.displayNames(games);
 
     }
 
     public void onAddGameRequested(int position) {
+        requestedIndex = position;
+        GameData gameData = games.get(requestedIndex);
+        gameView.askGameInsertionConfirmation(gameData.getName(), gameData.getSummary());
+    }
 
+
+    public void onAddGameConfirmed() {
+        model.insertGame(games.get(requestedIndex));
+        gameView.switchToMyGames();
     }
 }
