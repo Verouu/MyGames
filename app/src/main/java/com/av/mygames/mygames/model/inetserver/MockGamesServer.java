@@ -2,8 +2,8 @@ package com.av.mygames.mygames.model.inetserver;
 
 import android.os.AsyncTask;
 
-import com.jcamenatuji.mygames.model.AllGameData;
-import com.jcamenatuji.mygames.model.GameData;
+import com.av.mygames.mygames.model.AllGameData;
+import com.av.mygames.mygames.model.GameData;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.jcamenatuji.mygames.model.GameData.NO_NUMBER;
-import static com.jcamenatuji.mygames.model.GameData.NO_COMMENT;
-import static com.jcamenatuji.mygames.model.GameData.MyGameState.WANTING;
-import static com.jcamenatuji.mygames.model.GameData.NO_VALUE;
+import static com.av.mygames.mygames.model.GameData.NO_COMMENT;
+import static com.av.mygames.mygames.model.GameData.NO_NUMBER;
+import static com.av.mygames.mygames.model.GameData.NO_VALUE;
+
 
 /**
  * Created by jcamen on 21/02/18.
@@ -80,7 +80,7 @@ public class MockGamesServer implements IGamesServer {
         gameData.setReleaseDate(releaseDate);
         gameData.setCover(cover);
         gameData.setPegi(pegi);
-        gameData.setState(WANTING);
+        gameData.setState(GameData.MyGameState.WANTING);
         gameData.setComment(NO_COMMENT);
         return gameData;
     }

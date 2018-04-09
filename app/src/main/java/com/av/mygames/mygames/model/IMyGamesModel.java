@@ -12,4 +12,8 @@ public interface IMyGamesModel {
     void findGames (String gameName, ResponseReceiver<List<AllGameData>> receiver);
 
     void insertGame(GameData gameData);
+
+    List<Integer> getAllGames();
+
+    String getGameName(Integer itemId);
 }

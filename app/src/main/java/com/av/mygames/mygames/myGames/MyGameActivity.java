@@ -9,11 +9,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.av.mygames.mygames.R;
 import com.av.mygames.mygames.addGame.AddGameActivity;
+
+import java.util.List;
 
 
 public class MyGameActivity extends AppCompatActivity implements IMyGamesView, AskGameNameDialog.IGameNameListener{
@@ -21,6 +25,11 @@ public class MyGameActivity extends AppCompatActivity implements IMyGamesView, A
     private TextView noNames;
     private ListView namesList;
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        presenter.onViewStarted();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,5 +86,11 @@ public class MyGameActivity extends AppCompatActivity implements IMyGamesView, A
         Intent intent = new Intent(this, AddGameActivity.class);
         intent.putExtra(AddGameActivity.GAME_NAME, name);
         startActivity(intent);
+    }
+
+    @Override
+    public void displayNames(List<String> itemNames) {
+        ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemNames);
+        namesList.setAdapter(adapter);
     }
 }

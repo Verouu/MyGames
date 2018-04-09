@@ -37,7 +37,7 @@ public class AddGameActivity extends AppCompatActivity implements IAddGameView, 
         progress_bar = findViewById(R.id.progress_bar);
         game_list.setEmptyView(not_found_text);
 
-        presenter = new AddGamePresenter(this, MyGamesModel.getInstance(this));
+        presenter = new AddGamePresenter(this, MyGamesModel.getInstance());
 
         Intent intent = getIntent();
         String gameName = intent.getStringExtra(GAME_NAME);

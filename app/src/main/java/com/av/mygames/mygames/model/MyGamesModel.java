@@ -21,14 +21,11 @@ public class MyGamesModel implements IMyGamesModel{
     private static MyGamesModel instance = null;
 
     public static MyGamesModel getInstance(){
-        return instance;
-    }
-
-    public static MyGamesModel getInstance(Context context){
         if (instance == null)
             instance = new MyGamesModel(new MockGamesDatabase(), new MockGamesServer());
         return instance;
     }
+
 
     public MyGamesModel(IGamesDatabase db, IGamesServer gamesServer) {
         this.db = db;
@@ -47,5 +44,15 @@ public class MyGamesModel implements IMyGamesModel{
         db.insertGameData(gameData);
         db.insertPlatformData(gameRelationData);
         db.insertGenreData(gameRelationData);
+    }
+
+    @Override
+    public List<Integer> getAllGames() {
+        return db.getAllGames();
+    }
+
+    @Override
+    public String getGameName(Integer itemId) {
+        return db.getGameData(itemId).getName();
     }
 }
