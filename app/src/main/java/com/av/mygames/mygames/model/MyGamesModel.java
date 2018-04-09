@@ -55,4 +55,24 @@ public class MyGamesModel implements IMyGamesModel{
     public String getGameName(Integer itemId) {
         return db.getGameData(itemId).getName();
     }
+
+    @Override
+    public List<String> getAllPlatforms() {
+        return db.getAllPlatforms();
+    }
+
+    @Override
+    public List<String> getAllGenres() {
+        return db.getAllGenres();
+    }
+
+    @Override
+    public List<Integer> getGamesWithPlatform(String platform) {
+        return db.getGamesWithPlatform(platform);
+    }
+
+    @Override
+    public List<Integer> getGamesWithGenre(String genre) {
+        return db.getGamesWithGenre(genre);
+    }
 }

@@ -3,8 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.av.mygames.mygames.myGames.MyGameActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_games"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="@string/action_games"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_platforms"
+        android:orderInCategory="100"
+        android:title="@string/action_platforms"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_genres"
+        android:orderInCategory="100"
+        android:title="@string/action_genres"
         app:showAsAction="never" />
 </menu>

@@ -11,4 +11,8 @@ public interface IMyGamesView {
     void switchToAddGame(String name);
 
     void displayNames(List<String> itemNames);
+
+    int getDisplay();
+
+    void setDisplay(int displayGamesMode);
 }

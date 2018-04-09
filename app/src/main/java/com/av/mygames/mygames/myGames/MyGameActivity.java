@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -21,9 +22,16 @@ import java.util.List;
 
 
 public class MyGameActivity extends AppCompatActivity implements IMyGamesView, AskGameNameDialog.IGameNameListener{
+
+    public static final int DISPLAY_GAMES = 1;
+    public static final int DISPLAY_PLATFORMS = 2;
+    public static final int DISPLAY_GENRES = 3;
+
     private MyGamesPresenter presenter;
     private TextView noNames;
     private ListView namesList;
+
+    private int displayMode;
 
     @Override
     protected void onStart() {
@@ -52,6 +60,12 @@ public class MyGameActivity extends AppCompatActivity implements IMyGamesView, A
         presenter = new MyGamesPresenter(this);
 
         namesList.setEmptyView(noNames);
+
+        if (savedInstanceState != null) {
+            displayMode = savedInstanceState.getInt("DISPLAY_MODE", DISPLAY_GAMES);
+        }else{
+            displayMode = DISPLAY_GAMES;
+        }
     }
 
     @Override
@@ -69,7 +83,14 @@ public class MyGameActivity extends AppCompatActivity implements IMyGamesView, A
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_games) {
+            presenter.onDisplayModeSelected(DISPLAY_GAMES);
+            return true;
+        }else if (id == R.id.action_platforms){
+            presenter.onDisplayModeSelected(DISPLAY_PLATFORMS);
+            return true;
+        }else if (id == R.id.action_genres){
+            presenter.onDisplayModeSelected(DISPLAY_GENRES);
             return true;
         }
 
@@ -92,5 +113,39 @@ public class MyGameActivity extends AppCompatActivity implements IMyGamesView, A
     public void displayNames(List<String> itemNames) {
         ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, itemNames);
         namesList.setAdapter(adapter);
+
+        namesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                presenter.onShowNameRequested(position);
+            }
+        });
+    }
+
+    @Override
+    public int getDisplay() {
+        return displayMode;
+    }
+
+    @Override
+    public void setDisplay(int displayGamesMode) {
+        displayMode = displayGamesMode;
+        switch (displayMode){
+            case DISPLAY_GAMES:
+                noNames.setText("No games");
+                break;
+            case DISPLAY_GENRES:
+                noNames.setText("No genres");
+                break;
+            case DISPLAY_PLATFORMS:
+                noNames.setText("No platforms");
+                break;
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("DISPLAY_MODE", displayMode);
     }
 }

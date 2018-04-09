@@ -16,4 +16,12 @@ public interface IMyGamesModel {
     List<Integer> getAllGames();
 
     String getGameName(Integer itemId);
+
+    List<String> getAllPlatforms();
+
+    List<String> getAllGenres();
+
+    List<Integer> getGamesWithPlatform(String platform);
+
+    List<Integer> getGamesWithGenre(String genre);
 }
